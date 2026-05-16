@@ -20,7 +20,9 @@ COPY . .
 
 RUN composer run-script post-autoload-dump \
     && php artisan mixpost:publish-assets --force=true 2>/dev/null || true \
-    && php artisan vendor:publish --tag=mixpost-auth-assets --force 2>/dev/null || true
+    && php artisan vendor:publish --tag=mixpost-auth-assets --force 2>/dev/null || true \
+    && cp vendor/inovector/mixpost/database/migrations/create_mixpost_tables.php \
+       database/migrations/2024_01_01_000001_create_mixpost_tables.php 2>/dev/null || true
 
 RUN mkdir -p storage/framework/{sessions,views,cache} \
     storage/logs bootstrap/cache \
